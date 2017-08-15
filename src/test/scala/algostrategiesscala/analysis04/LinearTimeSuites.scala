@@ -1,5 +1,6 @@
-package algostrategies.analysis04
+package algostrategiesscala.analysis04
 
+import algostrategies.analysis04.LinearTime
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 

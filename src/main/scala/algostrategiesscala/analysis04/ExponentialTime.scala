@@ -1,4 +1,4 @@
-package algostrategies.analysis04
+package algostrategiesscala.analysis04
 
 /**
   * Created by honey.and.sw on 2017. 7. 30.
