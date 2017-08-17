@@ -11,12 +11,12 @@ public class ClockSync2Test {
     @Test
     public void syncClock1() throws Exception {
         int[] clock = {12, 6, 6, 6, 6, 6, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12};
-        // assertEquals(2, ClockSync2.syncClock(clock, 8));
-        assertEquals(2, ClockSync2.syncClock(clock, 7));
+        assertEquals(2, ClockSync2.syncClock(clock, 0));
     }
 
     @Test
-    public void updateClock1() throws Exception {
-
+    public void syncClock2() throws Exception {
+        int[] clock = {12, 9, 3, 12, 6, 6, 9, 3, 12, 9, 12, 9, 12, 12, 6, 6};
+        assertEquals(9, ClockSync2.syncClock(clock, 0));
     }
 }
