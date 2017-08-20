@@ -4,3 +4,4 @@
 
 #### 03 알고리즘 설계 패러다임
 * 6 무식하게 풀기 : bruteforce06
+* 7 분할 정복 : divideconquer07

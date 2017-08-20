@@ -28,6 +28,8 @@ public class Picnic {
     }
 
     public static int countFriends(boolean[][] friends, Set<Integer> students) {
+        // There's no student waiting.
+        // Every student has a friend! :)
         if (students.size() == 0) return 1;
 
         int count = 0;
