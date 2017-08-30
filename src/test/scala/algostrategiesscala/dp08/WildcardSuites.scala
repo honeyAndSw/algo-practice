@@ -51,4 +51,8 @@ class WildcardSuites extends FunSuite {
     WildcardProblem.orderIfMatch(Array("a", "B", "c", "1"), "*") should equal ("1\nB\na\nc")
   }
 
+  test("Wildcard 7") {
+    WildcardProblem("aaaaaaaaaab", "******a").solve should equal (false)
+  }
+
 }

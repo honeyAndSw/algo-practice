@@ -45,9 +45,6 @@ object Wildcard {
       if (fi == file.length) {
         // Both file and query strings are iterated through the end.
         if (qi == query.length) true
-        // `?` expects there's one or more characters.
-        else if (query(qi) == '?') false
-        // `*` expect there's zero or more characters.
         // If `*` is at the end of query, safe to return true.
         else if (query(qi) == '*' && qi == (query.length - 1)) true
         else false
@@ -63,13 +60,15 @@ object Wildcard {
 
         val nextMatch: Boolean =
           // Because `?` should have to match a character, drop the first character and continue match.
-          if (q == '?') matchQuery(cache, fi+1, qi+1)
-          else if (q == '*') matchQuery(cache, fi+1, qi) || matchQuery(cache, fi, qi+1) || matchQuery(cache, fi+1, qi+1)
-          else if (q == f) matchQuery(cache, fi+1, qi+1)
+          if (q == '?' || q == f) matchQuery(cache, fi+1, qi+1)
+          // || matchQuery(cache, fi+1, qi+1) is useless.
+          // This match will be executed somehow later.
+          else if (q == '*') matchQuery(cache, fi+1, qi) || matchQuery(cache, fi, qi+1)
           else false
 
         /*
-         * I originally did the following if `q` is not one of `?` or `*`:
+         I originally did the following if `q` is not one of `?` or `*`:
+
             else if (q == f) {
               if (containsWildcard(qi)) matchQuery(cache, fi+1, qi+1) || matchQuery(cache, fi+1, qi)
               else matchQuery(cache, fi+1, qi+1)
@@ -78,9 +77,9 @@ object Wildcard {
               if (containsWildcard(qi)) matchQuery(cache, fi+1, qi)
               else false
             }
-         *
-         * What I meant to do is to delay matching `fi` and `qi` if query has remaining wildcards.
-         * But it turns out this approach is to force put `*` in front of query even though it isn't there.
+
+         What I meant to do is to delay matching `fi` and `qi` if query has remaining wildcards.
+         But it turns out this approach is to force put `*` in front of query even though it isn't there.
          */
 
         cache(qi)(fi) = if (nextMatch) 1 else -1
