@@ -61,7 +61,7 @@ public class Pi {
         }
 
         // [FIX] Figured out that using diffAbs is too generous to find level 4,
-        // for example: {8,7,6,7} ==> its diff {1,-1,-1} ==> its diffAbs {1,1,1}
+        // for example: {8,7,6,7} ==> its diff {1,1,-1} ==> its diffAbs {1,1,1}
         // int[] diffAbs = new int[diff.length];
         // for (int i = 0; i < diffAbs.length; i++) diffAbs[i] = Math.abs(diff[i]);
         // if (allEquals(diffAbs) && sub[0] == sub[2]) return 4;
