@@ -8,3 +8,4 @@
 * 6 무식하게 풀기 : bruteforce06
 * 7 분할 정복 : divideconquer07
 * 8 동적 계획법 : dp08
+* 9 동적 계획법 테크틱 : dptechnique09
