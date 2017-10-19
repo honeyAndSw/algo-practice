@@ -1,6 +1,5 @@
 package algostrategies.dptechnique09;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
