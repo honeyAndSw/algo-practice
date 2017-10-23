@@ -1,6 +1,7 @@
 package algostrategies.dptechnique09;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Dragon
@@ -8,8 +9,68 @@ import java.util.HashMap;
 public class Dragon {
 	static HashMap<String, String> cache0 = new HashMap<>();
 
+	// When evolveCache's type is int:
+	// 29 = 1610612734
+	// 30 = -1073741826
+	// 31 = 2147483646
+	// 32 = -2
+	// 34 = -2
+	static long[] evolveCache = new long[51];
+
 	public static void main(String[] arg) {
-		cache0.clear();
+		Scanner sc = new Scanner(System.in);
+		int cases = sc.nextInt();
+
+		setEvolveCache();
+		for (int c = 0; c < cases; c++) {
+			int gen = sc.nextInt();
+			int skip = sc.nextInt();
+			int len = sc.nextInt();
+			System.out.println(dragon(gen, skip - 1, len));
+		}
+	}
+
+	public static void setEvolveCache() {
+		evolveCache[0] = 1;
+		for (int i = 1; i < evolveCache.length; i++) {
+			evolveCache[i] = 2 * evolveCache[i - 1] + 2;
+		}
+	}
+
+	public static String dragon(int generations, int skip, int len) {
+		StringBuffer sb = new StringBuffer(len);
+		for (int i = 0; i < len; i++) {
+			sb.append(dragon("FX", generations, skip + i));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * @param seed seed string to be evolved if needed.
+	 * @param generations the number of evolution need to do.
+	 * @param skip
+	 * @return
+	 */
+	public static char dragon(String seed, int generations, int skip) {
+		if (generations == 0) {
+			return seed.charAt(skip);
+		}
+
+		for (char s : seed.toCharArray()) {
+			if (s == 'X' || s == 'Y') {
+				if (skip >= evolveCache[generations]) {
+					skip -= evolveCache[generations];
+				} else {
+					return dragon(s == 'X' ? "X+YF" : "FX-Y", generations - 1, skip);
+				}
+			} else if (skip > 0) {
+				skip--;
+			} else {
+				return s;
+			}
+		}
+
+		return '0';
 	}
 
 	/**
