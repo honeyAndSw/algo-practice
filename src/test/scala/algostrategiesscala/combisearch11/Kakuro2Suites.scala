@@ -63,6 +63,15 @@ class Kakuro2Suites extends FunSuite {
     }
   }
 
+  test("findNextYX") {
+    Kakuro2.initialize(BOARD, HINTS)
+    Kakuro2.findNextYX(1, 2) should equal (Some((1, 5)))
+    Kakuro2.findNextYX(1, 6) should equal (Some((1, 7)))
+    Kakuro2.findNextYX(1, 7) should equal (Some((2, 1)))
+    Kakuro2.findNextYX(7, 6) should equal (Some(7, 7))
+    Kakuro2.findNextYX(7, 7) should equal (None)
+  }
+
   test("solve") {
     val expected = Array(
       Array(0, 0, 0, 0, 0, 0, 0, 0),
@@ -78,13 +87,13 @@ class Kakuro2Suites extends FunSuite {
     val answer = Kakuro2.solve(BOARD, HINTS)
     Kakuro2.print
 //    0,0,0,0,0,0,0,0
-//    0,7,-1,0,0,7,-1,-1
-//    0,9,8,0,8,-1,5,7
-//    0,8,7,5,-1,6,0,0
-//    0,0,6,1,0,8,3,0
-//    0,0,0,2,1,9,8,3
-//    0,9,8,3,6,0,1,5
-//    0,6,5,4,0,0,2,-1
+//    0,9,7,0,0,8,7,9
+//    0,8,9,0,8,9,5,7
+//    0,6,8,5,9,7,0,0
+//    0,0,6,1,0,2,6,0
+//    0,0,0,4,6,1,2,3
+//    0,8,9,3,1,0,1,4
+//    0,3,1,2,0,0,3,-1
     answer should equal (expected)
   }
 }

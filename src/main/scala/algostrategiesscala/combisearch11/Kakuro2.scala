@@ -26,8 +26,16 @@ object Kakuro2 {
 
   def solve(board: Array[Array[Int]], hints: Array[Array[Int]]): Array[Array[Int]] = {
     initialize(board, hints)
+
+    def simpleRecursion: (Int, Int) => Boolean = (y, x) => {
+      fillBoard(y, x)
+      val next = findNextYX(y, x)
+      if (next.isEmpty) true else simpleRecursion.tupled(next.get)
+    }
+
     val nextYX: (Int, Int) = findNextYX(0, 0).get
-    val result = fillBoard(nextYX._1, nextYX._2)
+    simpleRecursion.tupled(nextYX)
+
     BOARD_ANSWER
   }
 
@@ -84,7 +92,7 @@ object Kakuro2 {
   def fillBoard(y: Int, x: Int): Boolean = {
     val nextYX: Option[(Int, Int)] = findNextYX(y, x)
 
-    println(s">>>>> ($x,$y)")
+    //println(s">>>>> ($x,$y)")
     // true if nextYX is empty or map function return true
     nextYX.forall { case (nextY, nextX) =>
       val num: Option[Int] = (1 to 9).toSeq
@@ -93,7 +101,7 @@ object Kakuro2 {
           val predicate2 = !duplicated(y, x, n)
           val predicate3 = bigEnough(y, x, n)
 
-          println(s">> $n $predicate1 $predicate2 $predicate3")
+          //println(s">> $n $predicate1 $predicate2 $predicate3")
           predicate1 && predicate2 && predicate3
         }.map { n =>
           BOARD_ANSWER(y)(x) = n
@@ -108,7 +116,7 @@ object Kakuro2 {
     }
   }
 
-  private def findNextYX(y: Int, x: Int): Option[(Int, Int)] = {
+  def findNextYX(y: Int, x: Int): Option[(Int, Int)] = {
     BOARD_ANSWER.zipWithIndex
       .drop(y)
       .map { case (row, yi) =>
@@ -126,39 +134,35 @@ object Kakuro2 {
     (n <= HHINT(yxKey(y, x)).value) && (n <= VHINT(yxKey(y, x)).value)
 
   private def duplicated(y: Int, x: Int, n: Int): Boolean = {
-    val hhint = HHINT(yxKey(y, x))
-    val hdup = BOARD_ANSWER(y).toSeq.
-      slice(hhint.x + 1, hhint.numofcells + hhint.x + 1)
-      .contains(n)
-
-    val vhint = VHINT(yxKey(y, x))
-    val vdup = BOARD_ANSWER.indices
-      .map(yi => BOARD_ANSWER(yi)(x))
-      .slice(vhint.y + 1, vhint.y + 1 + vhint.numofcells)
-      .contains(n)
+    val key = yxKey(y, x)
+    val hdup = HHINT(key).range(BOARD_ANSWER).contains(n)
+    val vdup = VHINT(key).range(BOARD_ANSWER).contains(n)
 
     hdup || vdup
   }
 
   private def bigEnough(y: Int, x: Int, n: Int): Boolean = {
-    val countEmptyCells: ((Iterable[Int]) => Int) = (itr) => itr.count(_ == -1)
-    val remainingSum: ((Hint, Iterable[Int]) => Int) = (hint, itr) => hint.value - itr.filter(_ > -1).sum
+    val enough: (Hint => Boolean) = hint => {
+      val emptyCells = hint.countEmptyCells(BOARD_ANSWER)
+      val remainingSum = hint.remainingSum(BOARD_ANSWER)
 
-    val hhint = HHINT(yxKey(y, x))
-    // slice from the right next of hint
-    val hhintCells = BOARD_ANSWER(y).toSeq.slice(hhint.x + 1, hhint.numofcells + hhint.x + 1)
-    val hEmptyCells = countEmptyCells(hhintCells)
+      if (emptyCells > 1) (remainingSum - n) <= (emptyCells - 1) * 9
+      else remainingSum == n
+    }
 
-    val vhint = VHINT(yxKey(y, x))
-    val vhintCells = BOARD_ANSWER.indices.map(yi => BOARD_ANSWER(yi)(x)).slice(vhint.y + 1, vhint.y + 1 + vhint.numofcells)
-    val vEmptyCells = countEmptyCells(vhintCells)
-
-    // hint.value <= n + (# of empty cells * 9)
-    // hint.value - n <= # of empty cells * 9
-    ((remainingSum(hhint, hhintCells) - n) <= (hEmptyCells - 1) * 9) &&
-      ((remainingSum(vhint, vhintCells) - n) <= (vEmptyCells - 1) * 9)
+    enough(HHINT(yxKey(y, x))) && enough(VHINT(yxKey(y, x)))
   }
 }
 
+case class Hint(y: Int, x: Int, value: Int, direction: Int, numofcells: Int) {
 
-case class Hint(y: Int, x: Int, value: Int, direction: Int, numofcells: Int)
+  def range(board: Array[Array[Int]]): Seq[Int] = direction match {
+    case 0 => board(y).toSeq.slice(x + 1, x + 1 + numofcells)
+    case 1 => board.indices.map(yi => board(yi)(x)).slice(y + 1, y + 1 + numofcells)
+  }
+
+  def remainingSum(board: Array[Array[Int]]): Int = value - range(board).filter(_ > -1).sum
+
+  def countEmptyCells(board: Array[Array[Int]]): Int = range(board).count(_ == -1)
+
+}
