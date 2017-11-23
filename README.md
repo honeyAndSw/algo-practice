@@ -18,8 +18,10 @@
 * Array
 * Hash Table
 * Linked List
-* Math Two Pointers
-* String Binary Search
+* Math
+* Two Pointers
+* String
+* Binary Search
 * Divide and Conquer
 * Dynamic Programming
 * Backtracking
@@ -30,7 +32,7 @@
 * Bit
 * Manipulation
 * Tree
-* Depth-first Search 
+* Depth-first Search
 * Breadth-first Search
 * Union Find
 * Graph
