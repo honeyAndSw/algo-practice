@@ -2,8 +2,7 @@ package leetcode;
 
 import org.junit.Test;
 
-import static leetcode.BinaryTreeInorderTraversal94.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Created by honey.and.sw on 2017. 11. 29.

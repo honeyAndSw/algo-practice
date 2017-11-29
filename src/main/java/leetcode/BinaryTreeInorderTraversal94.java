@@ -8,23 +8,6 @@ import java.util.List;
  */
 public class BinaryTreeInorderTraversal94 {
 
-    //Definition for a binary tree node.
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        public TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new LinkedList<>();
 
