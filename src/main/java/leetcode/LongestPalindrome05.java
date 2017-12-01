@@ -10,17 +10,7 @@ public class LongestPalindrome05 {
 		if (s == null) return longest;
 
 		for (int start = 0; start < s.length(); start++) {
-			// Find the same char with start at last.
-			int end = s.length() - 1;
-			while (end >= start && s.charAt(start) != s.charAt(end)) {
-				end--;
-			}
-
-			// substring [start, end] has all different chars.
-			// Skip start and continue.
-			if (end < start) continue;
-
-			for (; end >= start; end--) {
+			for (int end = s.length() - 1; end >= start; end--) {
 				if (s.charAt(start) != s.charAt(end)) continue;
 
 				int s0 = start, e0 = end;
@@ -30,7 +20,10 @@ public class LongestPalindrome05 {
 				}
 				if (s0 > e0 && longest.length() < (end - start + 1)) {
 					longest = s.substring(start, end + 1);
-					if (longest.length() == s.length()) break;
+					if (longest.length() == s.length()) {
+						// Return immediately because it's the best case.
+						return longest;
+					}
 				}
 			}
 		}
