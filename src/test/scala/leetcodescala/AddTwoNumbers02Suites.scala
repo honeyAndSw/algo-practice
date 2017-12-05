@@ -1,4 +1,4 @@
-package leetcode
+package leetcodescala
 
 import leetcodescala.AddTwoNumbers02
 import leetcodescala.AddTwoNumbers02.ListNode

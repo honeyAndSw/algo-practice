@@ -1,4 +1,4 @@
-package leetcode
+package leetcodescala
 
 import leetcodescala.TwoSum01
 import org.scalatest.FunSuite
