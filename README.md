@@ -11,6 +11,7 @@
 * 9 동적 계획법 테크틱 : dptechnique09
 * 10 탐욕법 : greedy10
 * 11 조합탐색 : combisearch11
+* 18 선형 자료 구조 : linearDataStructure18
 
 ## LeetCode
 
