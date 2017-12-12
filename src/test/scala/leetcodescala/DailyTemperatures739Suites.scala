@@ -30,4 +30,8 @@ class DailyTemperatures739Suites extends FunSuite {
   test("example2") {
     dailyTemperatures(Array(73, 74, 75, 71, 69, 72, 76, 77)) should equal (Array(1, 1, 4, 2, 1, 1, 1, 0))
   }
+
+  test("example3") {
+    dailyTemperatures(Array(71,71,71,71,76,71,71,71,71,71,71))
+  }
 }
