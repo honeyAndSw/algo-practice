@@ -12,6 +12,8 @@
 * 10 탐욕법 : greedy10
 * 11 조합탐색 : combisearch11
 * 18 선형 자료 구조 : linearDataStructure18
+* 19 큐와 스택, 데크 : stack19
+* 21 트리의 구현과 순회 : tree21
 
 ## LeetCode
 
