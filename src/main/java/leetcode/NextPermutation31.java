@@ -22,9 +22,16 @@ public class NextPermutation31 {
             return;
         }
 
+        // 0, ... , idx, idx+1, ... , N-1
+        // We found `idx` so far where:
+        // [idx+1, N-1] in descending order.
+        // 1) `idx` should be incremented (or switched to the closest larger element)
+        // 2) and [idx+1, N-1] should be sorted in ascending order
+        // for the next permutation.
+
         int nextIdx = minMaxIndex(nums, idx);
-        switchElems(nums, idx, nextIdx);
-        Arrays.sort(nums, idx + 1, nums.length);
+        switchElems(nums, idx, nextIdx); // 1)
+        Arrays.sort(nums, idx + 1, nums.length); // 2)
     }
 
     private int minMaxIndex(int[] nums, int compare) {
