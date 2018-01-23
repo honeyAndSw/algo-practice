@@ -12,15 +12,15 @@ public class Permutations46 {
 	public List<List<Integer>> permute(int[] nums) {
 		int[] count = new int[nums.length];
 		Arrays.fill(count, 1);
-		return permutate(nums, count, 0, new int[nums.length]);
+		return permute(nums, count, 0, new int[nums.length]);
 	}
 
 	/**
-	 * With `count` array,
+	 * With `count` array and with small code changes,
 	 * it's also possible to generate permutations of `nums` that has duplicated elements.
 	 * But #46 Permutations's input is limited to unique element `nums`.
 	 */
-	private List<List<Integer>> permutate(int[] nums, int[] count, int ri, int[] result) {
+	private List<List<Integer>> permute(int[] nums, int[] count, int ri, int[] result) {
 		LinkedList<List<Integer>> list = new LinkedList<>();
 
 		if (ri == nums.length) {
@@ -34,7 +34,7 @@ public class Permutations46 {
 
 			result[ri] = nums[i];
 			count[i] -= 1;
-			list.addAll(permutate(nums, count, ri + 1, result));
+			list.addAll(permute(nums, count, ri + 1, result));
 			count[i] += 1;
 		}
 
