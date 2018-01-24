@@ -4,6 +4,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 /**
@@ -52,8 +54,8 @@ public class MergeKSortedLists23Test {
 	@Test
 	public void test3() throws Exception {
 		ListNode[] lists = new ListNode[]{
-			new ListNode(2, new ListNode(3)),
-			new ListNode(1, new ListNode(2, new ListNode(4)))
+			new ListNode(Arrays.asList(2,3)),
+			new ListNode(Arrays.asList(1,2,4))
 		};
 
 		int[] merged = solution.mergeKLists(lists).toArray();
@@ -64,5 +66,16 @@ public class MergeKSortedLists23Test {
 	public void test4() throws Exception {
 		assertNull(solution.mergeKLists(new ListNode[0]));
 		assertNull(solution.mergeKLists(new ListNode[]{null}));
+	}
+
+	@Test
+	public void test5() throws Exception {
+		ListNode[] lists = new ListNode[]{
+				new ListNode(Arrays.asList(1,2,2)),
+				new ListNode(Arrays.asList(1,1,2))
+		};
+
+		int[] merged = solution.mergeKLists(lists).toArray();
+		assertArrayEquals(new int[]{1,1,1,2,2,2}, merged);
 	}
 }
