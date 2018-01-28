@@ -7,6 +7,15 @@ import java.util.stream.Collectors;
  * Created by honey.and.sw on 2018. 1. 21.
  */
 public class PermutationInString567 {
+
+    /**
+     * Return true if s2 contains the permutation of s1.
+     * In other words, one of the first string's permutations is the substring of the second string.
+     *
+     * @param s1
+     * @param s2
+     * @return
+     */
     public boolean checkInclusion(String s1, String s2) {
         int N1 = s1.length();
 
@@ -18,10 +27,18 @@ public class PermutationInString567 {
                 Collectors.groupingBy(ch -> ch, Collectors.counting())
         );
 
+        // N1, s1's length, is the size of window.
+        // Update `cache` in the first window.
         for (char ch : s2.substring(0, N1 - 1).toCharArray()) {
             minus(cache, ch);
         }
 
+        // Move window to the right one by one.
+        // 0 1 2 3 4 5 6 7 8 9
+        // [wdw]
+        //   [wdw]
+        // minus : consume a character if exists in s1.
+        // plus : add up a character if exists in s1.
         for (int i = N1 - 1; i < s2.length(); i++) {
             minus(cache, s2.charAt(i));
             if (allZero(cache)) {
