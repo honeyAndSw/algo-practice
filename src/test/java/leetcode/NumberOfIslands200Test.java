@@ -1,8 +1,9 @@
 package leetcode;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import static leetcode.utils.Arrays.toCharArray;
+import static org.junit.Assert.assertEquals;
 
 public class NumberOfIslands200Test {
 	NumberOfIslands200 solution = new NumberOfIslands200();
@@ -62,15 +63,5 @@ public class NumberOfIslands200Test {
 
 	private void equals(int expected, int[][] grid) throws Exception {
 		assertEquals(expected, solution.numIslands(toCharArray(grid)));
-	}
-
-	private char[][] toCharArray(int[][] grid) {
-		char[][] arr = new char[grid.length][grid[0].length];
-		for (int y = 0; y < grid.length; y++) {
-			for (int x = 0; x < grid[0].length; x++) {
-				arr[y][x] = grid[y][x] == 0 ? '0' : '1';
-			}
-		}
-		return arr;
 	}
 }
