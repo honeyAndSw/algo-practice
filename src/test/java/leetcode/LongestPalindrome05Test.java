@@ -16,7 +16,7 @@ public class LongestPalindrome05Test {
 	@Test
 	public void test0() throws Exception {
 		assertEquals("", solution.longestPalindrome(""));
-		assertEquals("", solution.longestPalindrome(null));
+		assertEquals(null, solution.longestPalindrome(null));
 	}
 
 	@Test

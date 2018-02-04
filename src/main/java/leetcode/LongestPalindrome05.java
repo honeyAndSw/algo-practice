@@ -4,8 +4,32 @@ package leetcode;
  * LongestPalindrome05
  */
 public class LongestPalindrome05 {
-	// Time Limit Exceeded.
-	public String longestPalindrome(String s) {
+	public String longestPalindrome(String str) {
+		if (str == null || str.length() <= 1) return str;
+
+		int maxWindow = 0;
+		String result = null;
+		boolean[][] cache = new boolean[str.length()][str.length()];
+		for (int i = 0; i < str.length(); i++) cache[i][i] = true;
+
+		for (int w = 2; w <= str.length(); w++) {
+			for (int s = 0; s <= str.length() - w; s++) {
+				int e = s + w - 1;
+				boolean isPalindrome = str.charAt(s) == str.charAt(e) && (w == 2 || (w > 2 && cache[s+1][e-1]));
+				if (isPalindrome && maxWindow < w) {
+					// It turns out that str#substring whenever finding palindrome affects time. :(
+					maxWindow = w;
+					result = str.substring(s, e + 1);
+				}
+				cache[s][e] = isPalindrome;
+			}
+		}
+
+		return maxWindow == 0 ? str.charAt(0) + "" : result;
+	}
+
+	// Time Limit Exceeded. (94/94)
+	public String longestPalindrome0(String s) {
 		String longest = "";
 		if (s == null) return longest;
 
