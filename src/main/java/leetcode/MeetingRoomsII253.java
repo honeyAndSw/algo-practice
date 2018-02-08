@@ -1,17 +1,10 @@
 package leetcode;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class MeetingRoomsII253 {
-	public static class Interval {
-		int start;
-		int end;
-		Interval() { start = 0; end = 0; }
-		Interval(int s, int e) { start = s; end = e; }
-	}
 
 	public int minMeetingRooms(Interval[] intervals) {
 		// Use lambda instead of Comparator.
