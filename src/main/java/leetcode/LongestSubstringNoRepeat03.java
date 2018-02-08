@@ -1,16 +1,33 @@
 package leetcode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by honey.and.sw on 2017. 11. 25.
- */
 public class LongestSubstringNoRepeat03 {
 
-    /**
-     * Accepted solution, still too late though.
-     */
+    /* 69 ms */
+    public int lengthOfLongestSubstring3(String str) {
+        int s = 0, e = 0, max = 0;
+        Map<String, Integer> position = new HashMap<>();
+
+        while (s < str.length() && e < str.length()) {
+            String ch = str.charAt(e) + "";
+            if (position.containsKey(ch)) {
+                max = Math.max(max, position.size());
+                int nextS = position.get(ch) + 1;
+                while (s < nextS) {
+                    position.remove(str.charAt(s++) + "");
+                }
+            }
+            position.put(ch, e++);
+        }
+
+        return Math.max(max, position.size());
+    }
+
+    /* Accepted solution, still too late though. 125 ms */
     public int lengthOfLongestSubstring2(String s) {
         int b = 0, e = 0, max = 0;
         Set<Character> cache = new HashSet<>();
