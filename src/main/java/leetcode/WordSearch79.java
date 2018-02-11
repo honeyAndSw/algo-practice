@@ -1,6 +1,6 @@
 package leetcode;
 
-public class WordSearch {
+public class WordSearch79 {
 	public boolean exist(char[][] board, String word) {
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[0].length; x++) {
