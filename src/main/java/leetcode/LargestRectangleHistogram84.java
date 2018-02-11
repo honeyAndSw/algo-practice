@@ -3,6 +3,31 @@ package leetcode;
 import java.util.Stack;
 
 public class LargestRectangleHistogram84 {
+
+    /* Only one Stack. */
+    public int largestRectangleArea1(int[] heights) {
+        Stack<Integer> pos = new Stack<>();
+        int max = 0, i = 0;
+
+        while (i < heights.length) {
+            if (pos.empty() || heights[pos.peek()] <= heights[i]) {
+                pos.push(i++);
+            } else {
+                int pop = pos.pop();
+                max = Math.max(max, pos.empty() ? i * heights[pop] : (i - pos.peek() - 1) * heights[pop]);
+            }
+        }
+
+        while (!pos.empty()) {
+            int pop = pos.pop();
+            max = Math.max(max,
+                pos.empty() ? heights.length * heights[pop] : (heights.length - pos.peek() - 1) * heights[pop]);
+        }
+
+        return max;
+    }
+
+    /* Stacks of positions and heights, and they're synchronized. */
     public int largestRectangleArea(int[] heights) {
         Stack<Integer> posStack = new Stack<>();
         Stack<Integer> heightStack = new Stack<>();
