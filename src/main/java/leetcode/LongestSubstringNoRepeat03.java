@@ -7,6 +7,44 @@ import java.util.Set;
 
 public class LongestSubstringNoRepeat03 {
 
+    public int lengthOfLongestSubstring5(String str) {
+        int s = 0, e = 0, max = 0;
+        Map<Character, Integer> position = new HashMap<>();
+
+        while (e < str.length()) {
+            char ch = str.charAt(e);
+
+            if (position.containsKey(ch)) {
+                s = position.get(ch) + 1;
+            }
+
+            max = Math.max(max, e - s + 1);
+            position.put(ch, e++);
+        }
+
+        return max;
+    }
+
+    public int lengthOfLongestSubstring4(String str) {
+        int s = 0, e = 0, max = 0;
+        Map<Character, Integer> position = new HashMap<>();
+
+        while (s < str.length() && e < str.length()) {
+            char ch = str.charAt(e);
+
+            if (position.containsKey(ch)) {
+                position.remove(str.charAt(s++));
+                // Better codes than solution #3.
+                // Let while-loop move `s` and `e` one by one.
+            } else {
+                position.put(ch, e++);
+                max = Math.max(max, position.size());
+            }
+        }
+
+        return Math.max(max, position.size());
+    }
+
     /* 69 ms */
     public int lengthOfLongestSubstring3(String str) {
         int s = 0, e = 0, max = 0;
@@ -15,7 +53,10 @@ public class LongestSubstringNoRepeat03 {
         while (s < str.length() && e < str.length()) {
             String ch = str.charAt(e) + "";
             if (position.containsKey(ch)) {
+                // Check if substring from `s` to `e` is the new maximum.
                 max = Math.max(max, position.size());
+
+                // Move `s` to skip duplicated `ch`.
                 int nextS = position.get(ch) + 1;
                 while (s < nextS) {
                     position.remove(str.charAt(s++) + "");
