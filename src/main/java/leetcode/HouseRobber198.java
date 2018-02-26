@@ -2,6 +2,19 @@ package leetcode;
 
 public class HouseRobber198 {
 
+	public int rob(int[] nums) {
+		if (nums.length == 0) return 0;
+
+		int previous = 0, skipPrevious = 0;
+		for (int n : nums) {
+			int previousBak = previous;
+			previous = Math.max(previous, skipPrevious + n);
+			skipPrevious = previousBak;
+		}
+
+		return Math.max(previous, skipPrevious);
+	}
+
 	public int rob0(int[] nums) {
 		int LEN = nums.length;
 		if (LEN == 0) return 0;
