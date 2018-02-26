@@ -1,11 +1,62 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CountSmallerNumbersAfterSelf315 {
+
+	// solution2 ----------------------------------
+
+	class TreeNode {
+		int val, leftCount;
+		TreeNode left, right;
+
+		TreeNode(int v) {
+			this.val = v;
+		}
+	}
+
 	public List<Integer> countSmaller(int[] nums) {
+		Integer[] result = new Integer[nums.length];
+		TreeNode head = null;
+
+		for (int i = nums.length - 1; i >= 0; i--) {
+			if (head == null) {
+				head = new TreeNode(nums[i]);
+				result[i] = 0;
+			} else {
+				result[i] = insert(head, nums[i], 0);
+			}
+		}
+
+		return Arrays.asList(result);
+	}
+
+	private int insert(TreeNode head, int num, int smallerNums) {
+		if (head.val > num) {
+			head.leftCount++;
+			if (head.left == null) {
+				head.left = new TreeNode(num);
+				return smallerNums;
+			} else {
+				return insert(head.left, num, smallerNums);
+			}
+		} else {
+			int nextSmallerNums = (head.val == num ? 0 : 1) + smallerNums + head.leftCount;
+			if (head.right == null) {
+				head.right = new TreeNode(num);
+				return nextSmallerNums;
+			} else {
+				return insert(head.right, num, nextSmallerNums);
+			}
+		}
+	}
+
+	// solution1 ----------------------------------
+
+	public List<Integer> countSmaller1(int[] nums) {
 		List<Integer> result = new LinkedList<>();
 		List<Integer> sorted = new ArrayList<>();
 		for (int i = nums.length - 1; i >= 0; i--) {
