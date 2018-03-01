@@ -15,10 +15,12 @@ public class FindAllAnagramsInString438 {
 		int windowSize = p.length();
 		for (int i = 0; i <= s.length() - windowSize; i++) {
 			if (i == 0) {
+				// Initialize window for `s` for the first time.
 				for (char chs : s.substring(0, windowSize).toCharArray()) {
 					sChars[chs - 'a'] += 1;
 				}
 			} else {
+				// Update window for `s`
 				sChars[s.charAt(i-1) - 'a'] -= 1; // previous window
 				sChars[s.charAt(i + windowSize - 1) - 'a'] += 1; // new window
 			}
