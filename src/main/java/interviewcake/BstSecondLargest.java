@@ -7,12 +7,6 @@ import leetcode.TreeNode;
  * https://www.interviewcake.com/question/java/second-largest-item-in-bst
  */
 public class BstSecondLargest {
-	public Integer secondLargest(TreeNode root) {
-		// TreeNode answer = recursive(root, null);
-		TreeNode answer = iterative(root);
-		return answer == null ? null : answer.val;
-	}
-
 	TreeNode recursive(TreeNode root, TreeNode largest) {
 		if (root == null) {
 			return null;
@@ -47,4 +41,25 @@ public class BstSecondLargest {
 		return (largest != null && largest.val > root.val) ? root : largest;
 	}
 
+	TreeNode iterativeSoltuion(TreeNode root) {
+		TreeNode p = root;
+
+		while (p != null) {
+			if (p.left != null && p.right == null) {
+				p = p.left;
+				while (p.right != null) p = p.right;
+				return p;
+			}
+
+			// p.left == null || p.right != null
+
+			if (p.right != null && p.right.left == null && p.right.right == null) {
+				return p;
+			}
+
+			p = p.right;
+		}
+
+		return p;
+	}
 }
