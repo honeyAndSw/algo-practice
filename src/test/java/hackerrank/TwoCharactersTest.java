@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StringTwoCharactersTest {
-	StringTwoCharacters solution = new StringTwoCharacters();
+public class TwoCharactersTest {
+	TwoCharacters solution = new TwoCharacters();
 
 	@Test
 	public void test0() throws Exception {

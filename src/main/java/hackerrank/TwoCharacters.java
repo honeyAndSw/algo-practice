@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StringTwoCharacters {
+public class TwoCharacters {
 	public int twoCharaters(String s) {
 		// Initialization
 		int LEN = 26;
